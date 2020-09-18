@@ -1,7 +1,8 @@
 const { Router } = require('express');
+const requireAuth = require('../middleware/requireAuth');
 
 const { Genre } = require('../models/genres');
-const { Movie, validateMovie } = require('../models/movies');
+const { Movie, validateMovie } = require('../models/movie');
 
 const moviesRouter = Router();
 
@@ -18,7 +19,7 @@ moviesRouter.get('/:id', async (req, res) => {
   res.send(movie);
 });
 
-moviesRouter.post('/', async (req, res) => {
+moviesRouter.post('/', requireAuth, async (req, res) => {
   const { error } = validateMovie(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -35,7 +36,7 @@ moviesRouter.post('/', async (req, res) => {
   res.send(movie);
 });
 
-moviesRouter.put('/:id', async (req, res) => {
+moviesRouter.put('/:id', requireAuth, async (req, res) => {
   const { error } = validateMovie(req.body);
 
   if (error) return res.status(400).send(error.message[0].details);
@@ -47,7 +48,7 @@ moviesRouter.put('/:id', async (req, res) => {
   res.send(movie);
 });
 
-moviesRouter.delete('/:id', async (req, res) => {
+moviesRouter.delete('/:id',requireAuth, async (req, res) => {
   const movie = await Movie.findByIdAndRemove(req.params.id);
 
   if (!movie) return res.status(404).send('Invalid movie id');

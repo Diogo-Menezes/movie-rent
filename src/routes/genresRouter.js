@@ -1,5 +1,8 @@
 const { Router } = require('express');
 
+const requireAuth = require('../middleware/requireAuth');
+const admin = require('../middleware/admin');
+
 const Genre = require('../models/genres');
 
 const genresRouter = Router();
@@ -16,7 +19,7 @@ genresRouter.get('/:id', async (req, res) => {
 
   res.send(genre);
 });
-genresRouter.post('/', async (req, res) => {
+genresRouter.post('/', requireAuth, async (req, res) => {
   const { error } = validateGenre(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -26,7 +29,7 @@ genresRouter.post('/', async (req, res) => {
   res.send(genre);
 });
 
-genresRouter.put('/:id', async (req, res) => {
+genresRouter.put('/:id', requireAuth, async (req, res) => {
   const { error } = validateGenre(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -43,7 +46,7 @@ genresRouter.put('/:id', async (req, res) => {
 
   res.send(genre);
 });
-genresRouter.delete('/:id', async (req, res) => {
+genresRouter.delete('/:id', [requireAuth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndRemove(req.params.id);
 
   if (!genre) return res.status(404).send('Invalid genre id provided');

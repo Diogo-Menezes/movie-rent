@@ -27,7 +27,7 @@ customerRouter.post('/', async (req, res) => {
 customerRouter.put('/:id', async (req, res) => {
   const { error } = validateCustomer(req.body);
 
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].mes);
 
   const customer = await Customer.findByIdAndUpdate(
     req.params.id,
