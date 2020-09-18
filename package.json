@@ -1,0 +1,11 @@
+{
+  "name": "moshi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^17.2.1",
+    "nodemon": "^2.0.4"
+  }
+}
