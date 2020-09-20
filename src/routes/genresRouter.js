@@ -3,16 +3,18 @@ const { Router } = require('express');
 const requireAuth = require('../middleware/requireAuth');
 const admin = require('../middleware/admin');
 
-const Genre = require('../models/genres');
+const { Genre, validateGenre } = require('../models/genres');
+const mongoose = require('mongoose');
+const validateObjectId = require('../middleware/validateObjectId');
 
 const genresRouter = Router();
 
 genresRouter.get('/', async (req, res) => {
-  const genres = await genres.find().sort('name');
+  const genres = await Genre.find().sort('name');
 
   res.send(genres);
 });
-genresRouter.get('/:id', async (req, res) => {
+genresRouter.get('/:id', validateObjectId, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
   if (!genre) return res.status(404).send('Invalid genre id provided');
@@ -39,7 +41,7 @@ genresRouter.put('/:id', requireAuth, async (req, res) => {
     {
       name: req.body.name,
     },
-    { new: true }
+    { useFindAndModify: true, new: true }
   );
 
   if (!genre) return res.status(404).send('Invalid genre id provided');
@@ -47,7 +49,7 @@ genresRouter.put('/:id', requireAuth, async (req, res) => {
   res.send(genre);
 });
 genresRouter.delete('/:id', [requireAuth, admin], async (req, res) => {
-  const genre = await Genre.findByIdAndRemove(req.params.id);
+  const genre = await Genre.findByIdAndDelete(req.params.id);
 
   if (!genre) return res.status(404).send('Invalid genre id provided');
 

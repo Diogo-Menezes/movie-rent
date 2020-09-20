@@ -1,17 +1,19 @@
 {
   "name": "moshi",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/startup/server.js",
   "license": "MIT",
   "directories": {
-    "test": "./__tests__"
+    "test": "./src/tests"
   },
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "test": "jest --watchAll"
+    "dev": "nodemon src/startup/server.js",
+    "test": "jest --watchAll --verbose --runInBand",
+    "test-coverage": "jest --coverage"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -26,6 +28,8 @@
     "winston-mongodb": "^5.0.5"
   },
   "devDependencies": {
-    "jest": "^26.4.2"
+    "@types/jest": "^26.0.14",
+    "jest": "^26.4.2",
+    "supertest": "^4.0.2"
   }
 }

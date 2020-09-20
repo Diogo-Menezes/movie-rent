@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 describe('', () => {
+  afterAll(async () => {
+    await mongoose.disconnect();
+  });
+  
   it('', () => {
     const _id = new mongoose.Types.ObjectId().toHexString();
     const payload = { _id, isAdmin: false };
