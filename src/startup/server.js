@@ -1,9 +1,8 @@
 const app = require('../index');
+const winston = require('winston');
 
-module.exports = () => {
-  const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3333;
 
-  const server = app.listen(port, () => {
-    winston.info(`Server started in port: ${port}  🚀`);
-  });
-};
+app.listen(port, () => {
+  winston.info(`Server started in port: ${port}  🚀`);
+});
