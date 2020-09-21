@@ -28,10 +28,10 @@ moviesRouter.post('/', requireAuth, async (req, res) => {
 
   if (!genre) return res.status(404).send('Invalid genre id provided');
 
-  const movie = new Movie({
+  const movie = await new Movie({
     ...req.body,
     genre: { _id: genre._id, name: genre.name },
-  });
+  }).save();
 
   res.send(movie);
 });
@@ -48,7 +48,7 @@ moviesRouter.put('/:id', requireAuth, async (req, res) => {
   res.send(movie);
 });
 
-moviesRouter.delete('/:id',requireAuth, async (req, res) => {
+moviesRouter.delete('/:id', requireAuth, async (req, res) => {
   const movie = await Movie.findByIdAndRemove(req.params.id);
 
   if (!movie) return res.status(404).send('Invalid movie id');

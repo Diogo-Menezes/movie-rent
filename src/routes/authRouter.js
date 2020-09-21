@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-
+const { User } = require('../models/user');
 const authRouter = Router();
+const _ = require('lodash');
 
 authRouter.post('/', async (req, res) => {
   const { error } = validate(req.body);
@@ -21,7 +22,7 @@ authRouter.post('/', async (req, res) => {
 
   return res
     .header('x-auth-token', token)
-    .send({ user: _.omit(user, ['__v', 'password']) });
+    .send(_.omit(user.toJSON(), ['__v', 'password']));
 });
 
 const validate = user => {

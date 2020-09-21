@@ -40,6 +40,7 @@ rentalSchema.methods.processReturn = function () {
   this.returnDate = new Date();
 
   const diff = differenceInDays(this.returnDate, this.rentDate);
+  
   this.rentalFee = diff * this.movie.dailyRentalRate;
 };
 

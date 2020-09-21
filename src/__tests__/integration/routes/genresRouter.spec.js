@@ -213,7 +213,6 @@ describe('/api/genres', () => {
     it('should return the deleted genre', async () => {
       const res = await callApi();
 
-      console.log(genre._id);
       expect(res.status).toBe(200);
       expect(res.body._id).toMatch(String(genre._id));
     });

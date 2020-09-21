@@ -9,7 +9,7 @@ customerRouter.get('/', async (req, res) => {
   res.send(customers);
 });
 customerRouter.get('/:id', async (req, res) => {
-  const customer = Customer.findById(req.params.id);
+  const customer = await Customer.findById(req.params.id);
 
   if (!customer) return res.status(404).send('Invalid customer id');
 
