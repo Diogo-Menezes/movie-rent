@@ -13,12 +13,10 @@ require('./startup/db')();
 require('./startup/validation')();
 require('./startup/prod')(app);
 
-app.use(express.static('../documentation/bundle.js'));
+app.use(express.static(path.resolve(__dirname, '..', 'documentation')));
 
 app.get('*', (req, res) => {
-  res.sendFile(
-    path.resolve(__dirname, '..', 'documentation', 'index.html')
-  );
+  res.sendFile(path.resolve(__dirname, '..', 'documentation', 'index.html'));
 });
 
 module.exports = app;
