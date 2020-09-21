@@ -1,5 +1,5 @@
 {
-  "name": "moshi",
+  "name": "movie-rent",
   "version": "1.0.0",
   "main": "./src/startup/server.js",
   "license": "MIT",
