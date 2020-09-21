@@ -10,7 +10,7 @@ I developed this project as part of my learning path the purpose of the app is t
 
 ## 1. How to use this repo
 
-- <code>git clone https://github.com/Diogo-Menezes/movie-rent.git movie-rent</code>
+- <code>git clone https://github.com/Diogo-Menezes/movie-rent.git</code>
 - <code>cd movie-rent</code>
 - <code>yarn install / npm install</code>
 - <code>Set a .env file with the same values of the .env.example</code>
